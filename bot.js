@@ -3,7 +3,9 @@ require('dotenv').config();
 
 const client = new Discord.Client();
 
-const PREFIX = "!react";
+const reactPrefix = "!react";
+
+const clearPrefix = "!clear";
 
 const authorizedUsers = [process.env.ZEKE_ID, process.env.NICK_ID, client.id];
 
@@ -59,7 +61,7 @@ client.on('message', msg => {
     if (!msg.channel.guild) {
         return;
     }
-    if (content.startsWith(PREFIX)) {
+    if (content.startsWith(reactPrefix)) {
         if (!authorized(msg.author.id, authorizedUsers)) {
             msg.reply("You don't have permission to do that, asshole.");
         } else {
@@ -73,7 +75,7 @@ client.on('message', msg => {
                 msg.reply("React to your message with the emoji.")
                 }
             }
-        } else if (content.startsWith("!clear")) {
+        } else if (content.startsWith(clearPrefix)) {
         if (!authorized(msg.author.id, authorizedUsers)) {
             msg.reply("You don't have permission to do that, asshole.");
         } else {
@@ -93,7 +95,7 @@ client.on('message', msg => {
 }
 );
 client.on("messageReactionAdd", (messageReaction, user) => {
-    if (messageReaction.message.content.startsWith(PREFIX)) {
+    if (messageReaction.message.content.startsWith(reactPrefix)) {
         if (!authorized(user.id, authorizedUsers)) {
         } else {
             const mentions = messageReaction.message.mentions.members.array();
@@ -105,7 +107,7 @@ client.on("messageReactionAdd", (messageReaction, user) => {
 });
 
 client.on("messageReactionRemove", (messageReaction, user) => {
-    if (messageReaction.message.content.startsWith(PREFIX)) {
+    if (messageReaction.message.content.startsWith(clearPrefix)) {
         if (!authorized(user.id, authorizedUsers)) {
         } else {
             const mentions = messageReaction.message.mentions.members.array();
