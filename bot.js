@@ -7,6 +7,8 @@ const reactPrefix = "!react";
 
 const clearPrefix = "!clear";
 
+const clearAllPrefix = "!clearall";
+
 const authorizedUsers = [process.env.ZEKE_ID, process.env.NICK_ID, client.id];
 
 var emojisSaved = new Map();
@@ -72,7 +74,7 @@ client.on('message', msg => {
             } else if (mentionsLen > 1) {
                 msg.reply("Too many users mentioned");
             } else {
-                msg.reply("React to your message with the emoji.")
+                msg.reply("React to your message with the emoji(s).")
                 }
             }
         } else if (content.startsWith(clearPrefix)) {
@@ -88,6 +90,13 @@ client.on('message', msg => {
             } else {
                 removeReacts(mentions[0].id, msg);
             }
+        }
+    } else if (content.startsWith(clearAllPrefix)) {
+        if (!authorized(msg.author.id, authorizedUsers)) {
+            msg.reply("haha u thought");
+        } else {
+            emojisSaved.clear();
+            msg.reply("All emojis successfully cleared.")
         }
     } else if (emojisSaved.has(msg.author.id)) {
         makeReactions(msg, msg.author.id);
