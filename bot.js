@@ -22,6 +22,11 @@ function authorized(ID, authorizedIDS) {
     return false;
 }
 
+function unauthorized(author) {
+    author.send("You shouldn't have tried to do that without permission.",
+      { file: "https://pbs.twimg.com/profile_images/1112916058522963968/3XTt7mSz_400x400.jpg" });
+}
+
 function addtoMap(id, reaction) {
     if (emojisSaved.has(id)) {
         emojisSaved.get(id).push(reaction);
@@ -65,7 +70,7 @@ client.on('message', msg => {
     }
     if (content.startsWith(reactPrefix)) {
         if (!authorized(msg.author.id, authorizedUsers)) {
-            msg.reply("You don't have permission to do that, asshole.");
+            unauthorized(msg.author);
         } else {
             const mentions = msg.mentions.members.array();
             const mentionsLen = mentions.length
@@ -79,7 +84,7 @@ client.on('message', msg => {
             }
         } else if (content.startsWith(clearPrefix)) {
         if (!authorized(msg.author.id, authorizedUsers)) {
-            msg.reply("You don't have permission to do that, asshole.");
+            unauthorized(msg.author);
         } else {
             const mentions = msg.mentions.members.array();
             const mentionsLen = mentions.length
@@ -93,7 +98,7 @@ client.on('message', msg => {
         }
     } else if (content.startsWith(clearAllPrefix)) {
         if (!authorized(msg.author.id, authorizedUsers)) {
-            msg.reply("haha u thought");
+            unauthorized(msg.author);
         } else {
             emojisSaved.clear();
             msg.reply("All emojis successfully cleared.")
