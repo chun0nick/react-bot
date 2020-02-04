@@ -82,27 +82,27 @@ client.on('message', msg => {
                 msg.reply("React to your message with the emoji(s).")
                 }
             }
-        } else if (content.startsWith(clearPrefix)) {
-        if (!authorized(msg.author.id, authorizedUsers)) {
-            unauthorized(msg.author);
-        } else {
-            const mentions = msg.mentions.members.array();
-            const mentionsLen = mentions.length
-            if (mentionsLen < 1) {
-                msg.reply("No users mentioned");
-            } else if (mentionsLen > 1) {
-                msg.reply("Too many users mentioned");
+        } else if (content.startsWith(clearAllPrefix)) {
+            if (!authorized(msg.author.id, authorizedUsers)) {
+                unauthorized(msg.author);
             } else {
-                removeReacts(mentions[0].id, msg);
+                emojisSaved.clear();
+                msg.reply("All emojis successfully cleared.")
             }
-        }
-    } else if (content.startsWith(clearAllPrefix)) {
-        if (!authorized(msg.author.id, authorizedUsers)) {
-            unauthorized(msg.author);
-        } else {
-            emojisSaved.clear();
-            msg.reply("All emojis successfully cleared.")
-        }
+        } else if (content.startsWith(clearPrefix)) {
+             if (!authorized(msg.author.id, authorizedUsers)) {
+                unauthorized(msg.author);
+            } else {
+                const mentions = msg.mentions.members.array();
+                const mentionsLen = mentions.length
+                if (mentionsLen < 1) {
+                    msg.reply("No users mentioned");
+                } else if (mentionsLen > 1) {
+                    msg.reply("Too many users mentioned");
+                } else {
+                    removeReacts(mentions[0].id, msg);
+                }
+            }
     } else if (emojisSaved.has(msg.author.id)) {
         makeReactions(msg, msg.author.id);
     } 
