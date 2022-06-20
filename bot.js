@@ -9,7 +9,7 @@ const clearPrefix = "!clear";
 
 const clearAllPrefix = "!clearall";
 
-const authorizedUsers = [process.env.ZEKE_ID, process.env.NICK_ID, client.id];
+const authorizedUsers = [process.env.NICK_ID, client.id];
 
 var emojisSaved = new Map();
 
@@ -24,7 +24,7 @@ function authorized(ID, authorizedIDS) {
 
 function unauthorized(author) {
     author.send("You shouldn't have tried to do that without permission.",
-      { file: "https://pbs.twimg.com/profile_images/1112916058522963968/3XTt7mSz_400x400.jpg" });
+      { file: "https://i.kym-cdn.com/entries/icons/mobile/000/036/244/twoniggas.jpg" });
 }
 
 function addtoMap(id, reaction) {
