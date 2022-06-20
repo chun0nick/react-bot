@@ -132,4 +132,4 @@ client.on("messageReactionRemove", (messageReaction, user) => {
     }
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(NjY0NTY2MzA5ODMyNjIyMTQw.Gr7AA2.DFHATX0uleg81PqFLsuPB9H4r_yCoUM1H3tq50);
